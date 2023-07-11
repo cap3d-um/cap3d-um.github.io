@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Neural Shape Compiler: A Unified Framework for Transforming between Text, Point Cloud, and Program </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="static/img/favicon.ico">
+
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Grande","Avenir","Seravek","Ubuntu","DejaVu Sans","Trebuchet MS",Verdana,Arial,sans-serif}
+#header{background:#00274C;opacity:0.95;margin:0 auto;padding:50px 0 0;text-align:center;cursor:default;text-align:center}
+#header-container{margin:0 auto;padding: 0 2em;max-width:1000px}
+
+#header-container .col-logo{text-align:left}
+#header-container .logo{position:relative;z-index:100;height:50px;margin-top:20px;margin-right:10px}
+
+#header-container .col-info{text-align:left;margin-bottom:20px}
+#header-container #title{margin:.525em 0 1.525em;font-size:1.6em;font-weight:800;text-align:center}
+
+.paper-info{color:#8a8989;display:inline-block;margin:0 auto;text-align:left}
+.paper-info-margin{margin-bottom:20px}
+.paper-info p, .paper-info h3{line-height:1.6em; margin-bottom: 0em}
+.paper-info .title{font-size:16px;color:#FFCB05;font-weight:600}
+.paper-info .authors, .paper-info .authors a{color:#989C97}
+.paper-info .authors_bottom, .paper-info .authors_bottom a{color:#567EAE}
+.paper-info .email{color:#666; font-size:14px}
+.paper-info .tag{margin:auto auto;padding:0;list-style:none;text-align:left}
+.paper-info .tag li{display:inline-block;margin:auto;padding:0 3px 0 0;line-height:10px;color:#567EAE} a{color:#567EAE}
+.paper-info .conference, .paper-info .conference a{color:#FFCB05;font-weight:600}
+.paper-info .top a{color:#989C97}
+
+#wave-canvas{color:#8a8989;display:block;margin:-80px 0 0;width:100%;height:150px}
+
+#content{padding-top:0px;text-align:left;}
+#content-container{margin:0 auto;padding: 0 2em;max-width:1000px;}
+
+#content-container .header{color:#00274C;background:#FFCB05;padding:15px 30px 5px;border-bottom:3px solid #dddddd}
+#content-container .header .indicator{color:#00274C;margin-right:12px}
+
+#content-container .content{background:#ffffff;padding:15px 5px 15px 30px}
+#content-container .content .caption{color:#989C97}
+#content-container .content .bib{color:#989C97;font-size:14px;}
+#content-container .content .bib pre{margin:0;padding:0;}
+#content-container .content .href{style="color:#567EAE"}
+
+#footer{padding:2em 0 0.5em;margin:30px 0 0;background:#ffffff;opacity:0.95;font-size:14px;line-height:12px;text-align:center;color:#989C97}
+.highlight, .highlight a{color:#BB2222;font-weight:600}
+    </style>
+</head>
+<body>
+<div id="main">
+    <div id="header">
+        <div id="header-container" class="container">
+          <div class="row">
+            <div class="col-md-12 col-xl-12 col-info">
+                <h1 id="title"><p style="color:#FFCB05"> Neural Shape Compiler</p></h1>
+                <div class="paper-info">
+                    <h3 class="title">Neural Shape Compiler: A Unified Framework for Transforming between Text, Point Cloud, and Program
+</h3>
+                    <p class="authors">
+                    <a href="https://tiangeluo.github.io/">Tiange Luo</a>, <a href="https://web.eecs.umich.edu/~honglak/">Honglak Lee &#8224;</a>, <a href="https://web.eecs.umich.edu/~justincj/">Justin Johnson &#8224;</a> (&#8224;: equal advising)
+                    </p>
+                    <ul class="tag">
+                        <li class="conference"><a href="https://arxiv.org/abs/">TMLR 2022</a> </li>
+                        <li class="top"><a href="https://openreview.net/forum?id=gR9UVgH8PZ">Paper</a> |</li>
+                        <li class="top"><a href="https://github.com/tiangeluo/ShapeCompiler">Code</a> |</li>
+                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/bibs/nsc.txt">BibTeX</a> | </li>
+                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/video/NSC_video.mp4">Video</a> | </li>
+                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/poster/NSC_poster.pdf">Poster</a> | </li>
+                        <li class="top"><a href="https://docs.google.com/presentation/d/15rFxbHUIG3BVOS_YpLdvZe6nfsjICk8l/edit?usp=sharing&ouid=111081721457109247105&rtpof=true&sd=true">Slides</a> | </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        <canvas id="wave-canvas"></canvas>
+    </div>
+    <div id="content">
+        <div id="content-container" class="container">
+            <div class="header"><h4><span class="indicator">=</span>Overview</h4></div>
+            <div class="content">
+                        <p>
+                    3D shapes have complementary abstractions from low-level geometry to part-based hierarchies to languages, which convey different levels of information. This paper presents a unified framework to translate between pairs of shape abstractions: <i>Text</i> &#11020; <i>Point Cloud</i> &#11020; <i>Program</i>. We propose <b>Neural Shape Compiler</b> to model the abstraction transformation as a conditional generation process. It converts 3D shapes of three abstract types into unified discrete shape code, transforms each shape code into code of other abstract types through the proposed ShapeCode Transformer, and decodes them to output the target shape abstraction. Point Cloud code is obtained in a class-agnostic way by the proposed <i>Point</i>VQVAE. On Text2Shape, ShapeGlot, ABO, Genre, and Program Synthetic datasets, Neural Shape Compiler shows strengths in <i>Text</i> &#8594; <i>Point Cloud</i>, <i>Point Cloud</i> &#8594; <i>Text</i>, <i>Point Cloud</i> &#8594; <i>Program</i>, and Point Cloud Completion tasks. Additionally, Neural Shape Compiler benefits from jointly training on all heterogeneous data and tasks.
+            </p>
+
+            <p>
+            <center>
+            <img width="100%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/overview_v8.png">
+            </center>
+            </p>
+            <p class="caption">
+            <center>
+            Figure 1:  Overview of Neural Shape Compiler, and three transformation examples.
+            </center>
+            </p>
+
+            <p>
+                <center>
+                <img width="60%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/genre_v2.png">
+                </center>
+                </p>
+                <p class="caption">
+                <center>
+                Figure 2:  Neural Shape Compiler helps obtain hierarchical information for the reconstruction result of a single image, including its structural descriptions, regularities, and how to assemble it.
+                </center>
+                </p>
+            <p>
+            </div>
+        </div>
+        <div id="content-container" class="container">
+            <div class="header"><h4><span class="indicator">=</span>Results</h4></div>
+            <div class="content">
+            <p>
+            <center>
+            <img width="80%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/text2shape_v7.png"/>
+            </center>
+            </p>
+            <p class="caption">
+            <center>
+            Figure 3: Text2PointCloud. Neural Shape Compiler can generate corresponding point clouds to the text prompt with structural details, while the baselines generate inaccurate structures or fewer alignments with the text prompt.
+            </center>
+            </p>
+
+            <p>
+            <center>
+            <img width="80%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/text2shape_pic2.png"/>
+            </center>
+            </p>
+            <p class="caption">
+            <center>
+            Figure 4: Text2PointCloud more results.
+            </center>
+            </p>
+
+            <p>
+                <center>
+                <img width="80%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/shapecaptioning_v4.png"/>
+                </center>
+                </p>
+                <p class="caption">
+                <center>
+                Figure 6: PointCloud2Text. One description per sentence. The shown shapes are from test sets, and Neural Shape Compiler tell their structures well.
+                </center>
+            </p>
+
+            <p>
+                <center>
+                <img width="80%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/shapeprogram_cmp_v5.png"/>
+                </center>
+                </p>
+                <p class="caption">
+                <center>
+                Figure 6: PointCloud2Program. Neural Shape Compiler can well infer programs for the shown shapes of unseen categories and reconstruct shapes in a creative manner (e.g., represent the semicircle leg with bars).
+                </center>
+            </p>
+	    <!---------
+            <p>
+            <center>
+            <img width="80%" src="https://tiangeluo.github.io/projectpages/imgs/ltg/result_2.png"/>
+            </center>
+            </p>
+            <p class="caption">
+            <center>
+            Figure 4: Quantitative results.
+            </center>
+            </p>
+	    ------------->
+
+            </div>
+        </div>
+        <div id="content-container" class="container">
+            <div class="header"><h4><span class="indicator">=</span>Resources</h4></div>
+            <div class="content">
+                <ul>
+                    <li>Data can be found in <a href="https://github.com/tiangeluo/ShapeCompiler/tree/main/data">[Github]</a>.</li>
+                    <li>Our code and pre-trained models will be released soon</a>.</li>
+                    <!--
+                    <li>Training and inference codes  <a href="https://github.com/tiangeluo/">[PyTorch (Official)]</a>.</li>
+                    <li>Used 3D data with part annotations can be downloaded in <a href="https://drive.google.com/">[Google Drive (.zip)]</a>.</li>
+                    <li>Pre-trained models are provided in <a href="https://github.com/tiangeluo/">[Github repo]</a>.</li>
+                    -->
+                </ul>
+            </div>
+        </div>
+
+
+        <div id="content-container" class="container">
+            <div class="header"><h4><span class="indicator">=</span>Related Publication</h4></div>
+            <div class="content">
+                <div class="paper-info">
+                    <h3 class="title">LLVM: A Compilation Framework for Lifelong Program Analysis & Transformation</h3>
+                    <p class="authors_bottom">
+                        <a href="https://cs.uiuc.edu/">Chris Lattner</a>,
+                        <a href="https://cs.uiuc.edu/">Vikram Adve</a>,
+                    </p>
+                    <ul class="tag">
+                        <li class="conference"><a href="https://dl.acm.org/doi/proceedings/10.5555/977395">CGO 2004</a></li>
+                        <li class="body"><a href="https://llvm.org/pubs/2004-01-30-CGO-LLVM.pdf">Paper</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <p>Thank this <a href="http://nscl.csail.mit.edu/">template</a>. <a href="https://accessibility.umich.edu/">Accessibility</a> </p>
+    </div>
+    <!----------
+    <div id="footer">
+        <p>Thank this <a href="http://nscl.csail.mit.edu/">template</a> </p>
+    </div>
+    ---------->
+</div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script type="text/javascript" src="static/js/jquery.color.min.js"></script>
+<script type="text/javascript" src="static/js/wave.js"></script>
+<script type="text/javascript">
+$(function() {
+    targetColor = $("#title").css("color")
+    animatedLink = function(speed) {
+        $(".link-li").hover(function() {
+            $(this).find('.icon').animate({
+                color: targetColor,
+                borderColor: targetColor
+            }, speed);
+            $(this).find('.caption').animate({
+                color: '#798350'
+            })
+        }, function() {
+            $(this).find('.icon').animate({
+                borderColor: '#cccccc',
+                color: '#cccccc'
+            }, speed);
+            $(this).find('.caption').animate({
+                color: '#cccccc'
+            })
+        })
+    };
+    // fullBg();
+    animatedLink(400)
+});
+</script>
+</body>
+</html>
