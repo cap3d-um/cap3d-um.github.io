@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Neural Shape Compiler: A Unified Framework for Transforming between Text, Point Cloud, and Program </title>
+    <title>Cap3D</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,6 +51,8 @@ body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Gran
 #content-container .content .bib pre{margin:0;padding:0;}
 #content-container .content .href{style="color:#567EAE"}
 
+
+
 #footer{padding:2em 0 0.5em;margin:30px 0 0;background:#ffffff;opacity:0.95;font-size:14px;line-height:12px;text-align:center;color:#989C97}
 .highlight, .highlight a{color:#BB2222;font-weight:600}
     </style>
@@ -61,21 +63,19 @@ body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Gran
         <div id="header-container" class="container">
           <div class="row">
             <div class="col-md-12 col-xl-12 col-info">
-                <h1 id="title"><p style="color:#FFCB05"> Neural Shape Compiler</p></h1>
+                <h1 id="title"><p style="color:#FFCB05"> Cap3D </p></h1>
                 <div class="paper-info">
-                    <h3 class="title">Neural Shape Compiler: A Unified Framework for Transforming between Text, Point Cloud, and Program
+                    <h3 class="title">Scalable 3D Captioning with Pretrained Models
 </h3>
                     <p class="authors">
-                    <a href="https://tiangeluo.github.io/">Tiange Luo</a>, <a href="https://web.eecs.umich.edu/~honglak/">Honglak Lee &#8224;</a>, <a href="https://web.eecs.umich.edu/~justincj/">Justin Johnson &#8224;</a> (&#8224;: equal advising)
+                    <a href="https://tiangeluo.github.io/">Tiange Luo*</a>, <a href="https://tiangeluo.github.io/">Chris Rockwell*</a>, <a href="https://web.eecs.umich.edu/~honglak/">Honglak Lee&#8224;</a>, <a href="https://web.eecs.umich.edu/~justincj/">Justin Johnson&#8224;</a> (*: equal contribution, &#8224;: equal advising)
                     </p>
                     <ul class="tag">
-                        <li class="conference"><a href="https://arxiv.org/abs/">TMLR 2022</a> </li>
-                        <li class="top"><a href="https://openreview.net/forum?id=gR9UVgH8PZ">Paper</a> |</li>
-                        <li class="top"><a href="https://github.com/tiangeluo/ShapeCompiler">Code</a> |</li>
-                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/bibs/nsc.txt">BibTeX</a> | </li>
-                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/video/NSC_video.mp4">Video</a> | </li>
-                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/poster/NSC_poster.pdf">Poster</a> | </li>
-                        <li class="top"><a href="https://docs.google.com/presentation/d/15rFxbHUIG3BVOS_YpLdvZe6nfsjICk8l/edit?usp=sharing&ouid=111081721457109247105&rtpof=true&sd=true">Slides</a> | </li>
+                        <li class="conference"><a href="https://arxiv.org/abs//2306.07279">arXiv 2023</a> </li>
+                        <li class="top"><a href="https://arxiv.org/pdf/2306.07279.pdf">Paper</a> |</li>
+                        <li class="top"><a href="https://github.com/crockwell/Cap3D">Code</a> |</li>
+                        <li class="top"><a href="https://huggingface.co/datasets/tiange/Cap3D">Dataset</a> |</li>
+                        <li class="top"><a href="https://tiangeluo.github.io/projectpages/bibs/cap3d.txt">BibTeX</a> </li>
                     </ul>
                 </div>
             </div>
@@ -88,34 +88,54 @@ body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Gran
         <div id="content-container" class="container">
             <div class="header"><h4><span class="indicator">=</span>Overview</h4></div>
             <div class="content">
-                        <p>
-                    3D shapes have complementary abstractions from low-level geometry to part-based hierarchies to languages, which convey different levels of information. This paper presents a unified framework to translate between pairs of shape abstractions: <i>Text</i> &#11020; <i>Point Cloud</i> &#11020; <i>Program</i>. We propose <b>Neural Shape Compiler</b> to model the abstraction transformation as a conditional generation process. It converts 3D shapes of three abstract types into unified discrete shape code, transforms each shape code into code of other abstract types through the proposed ShapeCode Transformer, and decodes them to output the target shape abstraction. Point Cloud code is obtained in a class-agnostic way by the proposed <i>Point</i>VQVAE. On Text2Shape, ShapeGlot, ABO, Genre, and Program Synthetic datasets, Neural Shape Compiler shows strengths in <i>Text</i> &#8594; <i>Point Cloud</i>, <i>Point Cloud</i> &#8594; <i>Text</i>, <i>Point Cloud</i> &#8594; <i>Program</i>, and Point Cloud Completion tasks. Additionally, Neural Shape Compiler benefits from jointly training on all heterogeneous data and tasks.
-            </p>
-
+            <style>
+                .add-space {
+                    margin-bottom: 20px;
+                }
+            </style>
             <p>
-            <center>
-            <img width="100%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/overview_v8.png">
-            </center>
-            </p>
-            <p class="caption">
-            <center>
-            Figure 1:  Overview of Neural Shape Compiler, and three transformation examples.
-            </center>
+                Cap3D provides detailed descriptions of 3D objects by leveraging pretrained models in captioning, alignment, and LLM to consolidate multi-view information. 
             </p>
 
             <p>
                 <center>
-                <img width="60%" src="https://tiangeluo.github.io/projectpages/imgs/nsc/genre_v2.png">
+                <img width="100%" src="https://tiangeluo.github.io/projectpages/imgs/Cap3D/teaser.png">
                 </center>
                 </p>
                 <p class="caption">
                 <center>
-                Figure 2:  Neural Shape Compiler helps obtain hierarchical information for the reconstruction result of a single image, including its structural descriptions, regularities, and how to assemble it.
+                Figure 1:  Example captioning results by Cap3D.
+                </center>
+            </p>
+
+            <p class="add-space">
+                <center>
+                <img width="100%" src="https://tiangeluo.github.io/projectpages/imgs/Cap3D/compare.png">
+                </center>
+                </p>
+                <p class="caption">
+                <center>
+                Table 1:  Human evaluations revealed Cap3D surpasses crowdsourced annotation in efficiency, cost, and speed.
                 </center>
                 </p>
             <p>
+
+            <p>
+                Our proposed method, Cap3D, employs a four-step process. First, we render a set of 2D views for each 3D object. Next, we apply image captioning to achieve preliminary descriptions. As these captions may contain inaccuracies, an image-text alignment model, CLIP, is introduced in the third step to rectify errors. Finally, an LLM is employed to unify captions from various perspectives, creating a comprehensive caption. This process is shown in Figure 2 and detailed below.
+            </p>
+            <p>
+                <center>
+                <img width="100%" src="https://tiangeluo.github.io/projectpages/imgs/Cap3D/method.png">
+                </center>
+                </p>
+                <p class="caption">
+                <center>
+                Figure 2:  Overview of Cap3D pipeline.
+                </center>
+            </p>
             </div>
         </div>
+        <!----
         <div id="content-container" class="container">
             <div class="header"><h4><span class="indicator">=</span>Results</h4></div>
             <div class="content">
@@ -162,6 +182,7 @@ body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Gran
                 Figure 6: PointCloud2Program. Neural Shape Compiler can well infer programs for the shown shapes of unseen categories and reconstruct shapes in a creative manner (e.g., represent the semicircle leg with bars).
                 </center>
             </p>
+        -->
 	    <!---------
             <p>
             <center>
@@ -181,8 +202,10 @@ body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Gran
             <div class="header"><h4><span class="indicator">=</span>Resources</h4></div>
             <div class="content">
                 <ul>
-                    <li>Data can be found in <a href="https://github.com/tiangeluo/ShapeCompiler/tree/main/data">[Github]</a>.</li>
-                    <li>Our code and pre-trained models will be released soon</a>.</li>
+                    <li>Data can be found in <a href="https://huggingface.co/datasets/tiange/Cap3D">[Huggingface]</a>, including descriptive captions for 3D objects in Objaverse and ABO, along with Objaverse's point clouds, rendered images, and Shap-E latent codes.</li>
+                    <li>Our code for captioning and finetuning text-to-3D models are released in <a href="https://github.com/crockwell/Cap3D">[Github]</a></li>
+                    <li>Some fine-trained models are released in <a href="https://huggingface.co/datasets/tiange/Cap3D">[Huggingface]</a></a>.</li>
+                    <li>More captioning examples can be found in <a href="https://tiangeluo.github.io/projectpages/imgs/Cap3D/000.html">[Link]</a></a>.</li>
                     <!--
                     <li>Training and inference codes  <a href="https://github.com/tiangeluo/">[PyTorch (Official)]</a>.</li>
                     <li>Used 3D data with part annotations can be downloaded in <a href="https://drive.google.com/">[Google Drive (.zip)]</a>.</li>
@@ -196,22 +219,52 @@ body{font-family:"Open Sans",Segoe,"Segoe UI","Lucida Sans Unicode","Lucida Gran
         <div id="content-container" class="container">
             <div class="header"><h4><span class="indicator">=</span>Related Publication</h4></div>
             <div class="content">
-                <div class="paper-info">
-                    <h3 class="title">LLVM: A Compilation Framework for Lifelong Program Analysis & Transformation</h3>
+                <div class="paper-info", style="margin-bottom: 15px;">
+                    <h3 class="title">Objaverse: A Universe of Annotated 3D Objects</h3>
                     <p class="authors_bottom">
-                        <a href="https://cs.uiuc.edu/">Chris Lattner</a>,
-                        <a href="https://cs.uiuc.edu/">Vikram Adve</a>,
+                        Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs, Oscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana Ehsani, Aniruddha Kembhavi, Ali Farhadi
                     </p>
                     <ul class="tag">
-                        <li class="conference"><a href="https://dl.acm.org/doi/proceedings/10.5555/977395">CGO 2004</a></li>
-                        <li class="body"><a href="https://llvm.org/pubs/2004-01-30-CGO-LLVM.pdf">Paper</a> </li>
+                        <li class="conference"><a href="https://cvpr2023.thecvf.com/">CVPR 2023</a></a></li>
+                        <li class="body"><a href="https://objaverse.allenai.org/">Project Page</a> </li>
+                    </ul>
+                </div>
+
+                <div class="paper-info", style="margin-bottom: 15px;">
+                    <h3 class="title">ABO: Dataset and Benchmarks for Real-World 3D Object Understanding</h3>
+                    <p class="authors_bottom">
+                        Jasmine Collins, Shubham Goel, Kenan Deng, Achleshwar Luthra, Leon Xu, Erhan Gundogdu, Xi Zhang, Tomas F. Yago Vicente, Thomas Dideriksen, Himanshu Arora, Matthieu Guillaumin, Jitendra Malik
+                    </p>
+                    <ul class="tag">
+                        <li class="conference"><a href="https://cvpr2022.thecvf.com/">CVPR 2022</a></a></li>
+                        <li class="body"><a href="https://amazon-berkeley-objects.s3.amazonaws.com/index.html">Project Page</a> </li>
+                    </ul>
+                </div>
+                <div class="paper-info", style="margin-bottom: 15px;">
+                    <h3 class="title">GPT-4 Technical Report</h3>
+                    <p class="authors_bottom">
+                        OpenAI
+                    </p>
+                    <ul class="tag">
+                        <li class="conference"><a href="https://arxiv.org/abs/2303.08774">arXiv 2023</a></a></li>
+                        <li class="body"><a href="https://arxiv.org/pdf/2303.08774.pdf">Page</a> </li>
+                    </ul>
+                </div>
+                <div class="paper-info", style="margin-bottom: 15px;">
+                    <h3 class="title">BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models</h3>
+                    <p class="authors_bottom">
+                        Junnan Li, Dongxu Li, Silvio Savarese, Steven Hoi
+                    </p>
+                    <ul class="tag">
+                        <li class="conference"><a href="https://arxiv.org/abs/2301.12597">arXiv 2023</a></a></li>
+                        <li class="body"><a href="https://arxiv.org/pdf/2301.12597.pdf">Page</a> </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <div id="footer">
-        <p>Thank this <a href="http://nscl.csail.mit.edu/">template</a>. <a href="https://accessibility.umich.edu/">Accessibility</a> </p>
+        <p>Thank this <a href="http://nscl.csail.mit.edu/">template</a>. <a href="https://accessibility.umich.edu/">Accessibility</a>. </p>
     </div>
     <!----------
     <div id="footer">
